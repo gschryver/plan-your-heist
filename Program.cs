@@ -29,8 +29,19 @@ class Program
                
 
         // Prompt the user to enter the number of team members.
+        int numberOfTeamMembers;
+        string userInput2;
+
         Console.WriteLine("Enter the number of team members:");
-        int numberOfTeamMembers = int.Parse(Console.ReadLine() ?? "0");
+        userInput2 = Console.ReadLine() ?? "0";
+
+        // if user enters a non-integer, tell them to enter an integer
+        while (!int.TryParse(userInput2, out numberOfTeamMembers))
+        {
+            Console.WriteLine("Please enter an integer.");
+            Console.WriteLine("Enter the number of team members:");
+            userInput2 = Console.ReadLine() ?? "0";
+        }
 
         // Create a way to store several team members.
         List<TeamMember> teamMembers = new List<TeamMember>();
