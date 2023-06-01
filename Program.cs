@@ -13,12 +13,24 @@ class Program
     static void Main()
     {
         // Prompt the user to enter the difficulty level of the bank.
+        int bankDifficultyLevel;
+        string userInput;
+    
         Console.WriteLine("Enter the difficulty level:");
-        int bankDifficultyLevel = int.Parse(Console.ReadLine());
+        userInput = Console.ReadLine() ?? "0";
+
+        // if user enters a non-integer, tell them to enter an integer
+       while (!int.TryParse(userInput, out bankDifficultyLevel))
+        {
+            Console.WriteLine("Please enter an integer.");
+            Console.WriteLine("Enter the difficulty level:");
+            userInput = Console.ReadLine() ?? "0";
+        }
+               
 
         // Prompt the user to enter the number of team members.
         Console.WriteLine("Enter the number of team members:");
-        int numberOfTeamMembers = int.Parse(Console.ReadLine());
+        int numberOfTeamMembers = int.Parse(Console.ReadLine() ?? "0");
 
         // Create a way to store several team members.
         List<TeamMember> teamMembers = new List<TeamMember>();
@@ -29,7 +41,7 @@ class Program
             Console.WriteLine(
                 "Enter a team member's name (leave blank to stop adding team members):"
             );
-            string name = Console.ReadLine();
+            string name = Console.ReadLine() ?? "";
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -37,10 +49,10 @@ class Program
             }
 
             Console.WriteLine("Enter a team member's skill level:");
-            int skillLevel = int.Parse(Console.ReadLine());
+            int skillLevel = int.Parse(Console.ReadLine() ?? "0");
 
             Console.WriteLine("Enter a team member's courage factor:");
-            int courageFactor = int.Parse(Console.ReadLine());
+            int courageFactor = int.Parse(Console.ReadLine() ?? "0");
 
             TeamMember teamMember = new TeamMember()
             {
@@ -54,7 +66,7 @@ class Program
 
         // Prompt the user to enter the number of trial runs the program should perform.
         Console.WriteLine("Enter the number of trial runs:");
-        int numberOfTrials = int.Parse(Console.ReadLine());
+        int numberOfTrials = int.Parse(Console.ReadLine() ?? "0");
 
         int successCount = 0;
         int failureCount = 0;
@@ -79,10 +91,10 @@ class Program
             // Display a report that shows the team's combined skill level and the bank's difficulty level.
             Console.WriteLine($"Trial {i + 1}:");
             Console.WriteLine($"Team Skill Level: {teamSkillLevel}");
-            Console.WriteLine($"Bank Difficulty Level: {bankDifficultyLevel}");
+            Console.WriteLine($"Bank Difficulty Level: {modifiedBankDifficultyLevel}");
 
             // Compare the team's skill level with the bank's difficulty level. If the team's skill level is greater than or equal to the bank's difficulty level, display a success message, otherwise display a failure message.
-            if (teamSkillLevel >= bankDifficultyLevel)
+            if (teamSkillLevel >= modifiedBankDifficultyLevel)
             {
                 successCount++;
                 Console.WriteLine(
